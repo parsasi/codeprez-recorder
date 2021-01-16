@@ -19,7 +19,7 @@
 
 
 import { useEffect, useState } from "react";
-export default function useRecorder(onStop) {
+export default function useRecorder(getNewTrack) {
   const [mediaRecorder, setMediaRecorder] = useState();
 
   useEffect(() => {
@@ -36,7 +36,6 @@ export default function useRecorder(onStop) {
   const startRecording = () => {
     if (mediaRecorder) {
       mediaRecorder.start();
-
       const audioChunks = [];
       mediaRecorder.addEventListener("dataavailable", (event) => {
         audioChunks.push(event.data);
@@ -44,7 +43,7 @@ export default function useRecorder(onStop) {
 
       mediaRecorder.addEventListener("stop", () => {
         const audioBlob = new Blob(audioChunks);
-        onStop(URL.createObjectURL(audioBlob));
+        getNewTrack(URL.createObjectURL(audioBlob));
       });
     }
   };
@@ -60,6 +59,8 @@ export default function useRecorder(onStop) {
       if (mediaRecorder.state === "paused") {
         mediaRecorder.resume();
       } else if (mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        mediaRecorder.start();
         mediaRecorder.pause();
       }
     }

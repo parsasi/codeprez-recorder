@@ -10,7 +10,7 @@ export default function PreviewSpace() {
 }
 
 const Main = styled.div`
-    width: 85%;
+    width: 92%;
     height: 45%;
 `;
 
