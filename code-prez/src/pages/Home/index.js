@@ -3,11 +3,12 @@ import CodeRecorderNav from '../../components/CodeRecordNav'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 
-import landingImage from '../../assets/logo_codeprez.png';
+import logo from '../../assets/logo_codeprez_color.png';
+import landingImage from '../../assets/undraw_video_upload_3d4u.png'
 
 
 const HomeContainer = styled.div`
-    background-color: #1c1c1d;
+    background-color: white;
     min-height:100vh;
     color:#ffffff;
     display: flex;
@@ -21,14 +22,14 @@ const ContentCon = styled.div`
     height: 600px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 
 
 `;
 const ImgCon = styled.div`
     width: 50%;
-    height: 50%;
+    height: 45%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,7 +68,7 @@ export default function Home() {
             <ContentCon>
             <ImgCon>
                 <div style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
-                    <img style={{height: "112px", width: "300px"}} src={landingImage} />
+                    <img style={{height: "89px", width: "240px"}} src={logo} />
                     <Slogan>Elevate your videos</Slogan>
                 </div>
 
@@ -76,7 +77,7 @@ export default function Home() {
                     style={{
                         outline: 0,
                         textDecoration: "none",
-                        color: "#24CEDB",
+                        color: "#6c63ff",
                         fontSize: hover ? "24px" : "22px",
                         height: "75px",
                         animation: hover ? "glow 5s ease-in-out infinite alternate" : "none"
@@ -87,7 +88,7 @@ export default function Home() {
                     ENTER
                 </Link>
             </ImgCon>
-
+            <img style={{height: "366px", width: "425px"}} src={landingImage} />
             </ContentCon>
 
         </HomeContainer>
