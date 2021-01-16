@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import Download from '../../assets/download.png'
+import DownloadImage from '../../assets/download.png'
+import download from '../../helpers/download'
 
-export default function ExportButton() {
+export default function ExportButton(props) {
+
+    const downloadFile = () => {
+        download('CodePrez.cdpz' , JSON.stringify(props.snapshots))
+    }
+
     return (
         <Div>
-            <Button>
-                    <img src={Download} alt="Export" />
+            <Button onClick={downloadFile}>
+                    <img src={DownloadImage} alt="Export" />
                     <p style={{color: "white", fontSize: "14px"}}>
                         Export Recording
                     </p>

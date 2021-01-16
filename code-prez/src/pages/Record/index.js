@@ -22,10 +22,14 @@ export default function Record() {
     const [mins , setMins] = useState(0)
     const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
     const [audio , setAudio] = useState({})
+    const [snapshots , setSnapshots] = useState([])
+    const [playing, setPlaying] = useState(false);
+    const [currentPlayTime, setCurrentPlayTime] = useState(0);
     
     const updateAudio = (url) => {
         const newAudio = new Audio(url);
         setAudio(newAudio)
+
     }
     const recorder = useRecorder(updateAudio);
 
@@ -44,6 +48,19 @@ export default function Record() {
 
         return () => clearInterval(interval)
     } , [])
+
+    useEffect(() => {
+        if (playing) {
+            const interval = setInterval(() => {
+                setCurrentPlayTime(audio.currentTime);
+                if (audio.duration === audio.currentTime) {
+                    setPlaying(false);
+                }
+            }, 1000)
+
+            return () => clearInterval(interval)
+        }
+    }, [playing])
 
 
     const record = () => {
@@ -73,8 +90,14 @@ export default function Record() {
     }
     function playPreview() {
         audio.play()
+        setPlaying(true);
     }
-    
+
+    const addSnapshot = (snapshot) => {
+        setSnapshots([...snapshots , snapshot])
+
+    }
+
     return (
         <Main>
             
@@ -85,16 +108,16 @@ export default function Record() {
 
                 <BodyCon>
                     <InputCon>
-                        <CodeSpace />
+                        <CodeSpace addSnapshot={addSnapshot} mins={mins} seconds={seconds} />
                     </InputCon>
                     <PreviewCon>
-                        <PreviewSpace />
+                        <PreviewSpace snapshots={snapshots} currentTime={currentPlayTime}/>
                         <PreviewButtons>
                             <PreviewButton details={{type: "backward", action: backwardPreview}} />
                             <PreviewButton details={{type: "play", action: playPreview}} />
                             <PreviewButton details={{type: "forward", action: forwardPreview}} />
                         </PreviewButtons>
-                        <ExportButton />
+                        <ExportButton snapshots={snapshots} />
                     </PreviewCon>
                 </BodyCon>
             </RecordBG>

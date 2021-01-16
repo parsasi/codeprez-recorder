@@ -2,10 +2,13 @@ import React from 'react';
 import styled from 'styled-components'
 import CodeEditor from '../CodeEditor'
 
-export default function PreviewSpace() {
+export default function PreviewSpace(props) {
+    const currentSnap = props.snapshots
+    .filter(snap => snap.timestamp === Math.round(props.currentTime));
+    
     return (
         <Main>
-            <CodeEditor readOnly={true} />
+            <CodeEditor content={props.currentTime != 0 ? currentSnap[0].text : null} readOnly={true} />
         </Main>
     )
 }

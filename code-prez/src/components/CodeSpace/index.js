@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CodeEditor from '../CodeEditor'
+import hash from '../../helpers/hash'
 
-export default function CodeSpace() {
+export default function CodeSpace(props) {
+
+    const [content , setContent] = useState('')
+
+    useEffect(() => {
+
+            const timestamp = (props.mins * 60) + props.seconds
+
+            const snapshot = {
+                text : content,
+                timestamp,
+                hash : hash(content)
+            }
+
+            props.addSnapshot(snapshot)
+
+    } , [props.seconds , props.mins])
+
     return (
         <Main>
-            <CodeEditor lang={'javascript'} onChange={console.log} />
+            <CodeEditor lang={'javascript'} content={content} onChange={(text) => setContent(text)}  />
         </Main>
     )
 }

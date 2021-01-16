@@ -39,7 +39,7 @@ export default function CodeRecordNav(props){
         <RecorderNavContainer>
             <RecorderNav>
                 <RecorderNavButtons>
-                    <RecorderNavButton disabled={props.recording !== RecordingStates.NOT_STARTED} onClick={props.record} ><img src={Record} alt="" className={props.recording === RecordingStates.RECORDING ? 'blink' : ''} /></RecorderNavButton>
+                    <RecorderNavButton disabled={props.recording === RecordingStates.RECORDING || props.recording === RecordingStates.PAUSED} onClick={props.record} ><img src={Record} alt="" className={props.recording === RecordingStates.RECORDING ? 'blink' : ''} /></RecorderNavButton>
                     <RecorderNavButton disabled={props.recording === RecordingStates.NOT_STARTED || props.recording === RecordingStates.FINISHED} onClick={props.pause}><img src={Pause} alt="" /></RecorderNavButton>
                     <RecorderNavButton disabled={props.recording === RecordingStates.NOT_STARTED || props.recording === RecordingStates.FINISHED} onClick={props.stop}><img src={Stop} alt="" /></RecorderNavButton>
                 </RecorderNavButtons>
