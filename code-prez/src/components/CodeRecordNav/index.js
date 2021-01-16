@@ -7,13 +7,17 @@ import Stop from '../../assets/stop.png'
 import { RecordingStates } from '../../pages/Home'
 
 const RecorderNavContainer = styled.div`
-    height:110px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    height:75px;
+    width: 100%;
     background-color:#313C4E;
     display:flex;
     justify-content:center;
 `
 const RecorderNav = styled.div`
-    width:80%;
+border-top-radius: 4px;
+    width:96.5%;
     height:100%;
     display:flex;
     justify-content:flex-start;
