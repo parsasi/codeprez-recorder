@@ -6,6 +6,9 @@ import CodeRecordNav from '../../components/CodeRecordNav';
 import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '../../helpers/timer'
 import useRecorder from '../../hooks/useRecorder'
 
+import PreviewButton from '../../components/PreviewButton';
+import ExportButton from '../../components/ExportButton';
+
 export const RecordingStates = {
     NOT_STARTED : 'NOT_STARTED',
     RECORDING : 'RECORDING',
@@ -59,6 +62,16 @@ export default function Record() {
         recorder.stop()
         resetTimer()
     }
+
+    function backwardPreview() {
+        console.log("placeholder")
+    }
+    function forwardPreview() {
+        console.log("placeholder")
+    }
+    function playPreview() {
+        console.log("placeholder")
+    }
     
     return (
         <Main>
@@ -74,6 +87,12 @@ export default function Record() {
                     </InputCon>
                     <PreviewCon>
                         <PreviewSpace />
+                        <PreviewButtons>
+                            <PreviewButton details={{type: "backward", action: backwardPreview}} />
+                            <PreviewButton details={{type: "play", action: playPreview}} />
+                            <PreviewButton details={{type: "forward", action: forwardPreview}} />
+                        </PreviewButtons>
+                        <ExportButton />
                     </PreviewCon>
                 </BodyCon>
             </RecordBG>
@@ -130,8 +149,17 @@ const InputCon = styled.div`
 
 const PreviewCon = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 40%;
     height: 100%;
+    flex-direction: column;
+`;
 
+const PreviewButtons = styled.div`
+    width: 92%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `;

@@ -18,8 +18,8 @@ const HomeContainer = styled.div`
 
 export default function Home() {
 
-    const [recordingState , setRecordingState] = useState(RecordingStates.NOT_STARTED)
-    const [recordedTime , setRecordedTime] = useState(0)
+    const [recordingState , setRecordingState] = useState(RecordingStates.NOT_STARTED);
+    const [recordedTime , setRecordedTime] = useState(0);
 
     return (
         <HomeContainer>

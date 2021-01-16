@@ -36,7 +36,6 @@ export default function useRecorder(getNewTrack) {
   const startRecording = () => {
     if (mediaRecorder) {
       mediaRecorder.start();
-
       const audioChunks = [];
       mediaRecorder.addEventListener("dataavailable", (event) => {
         audioChunks.push(event.data);

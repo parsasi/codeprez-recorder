@@ -22,7 +22,6 @@ export default function Button(props){
             transform: ${!props.disabled ? `scale(1.1)` : 'none'};
         }
     `
-
     return (
 
             <StyledButton disabled={props.disabled || false} onClick={props.onClick}>
