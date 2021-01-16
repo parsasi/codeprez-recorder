@@ -23,7 +23,8 @@ export default function Record() {
     const [audio , setAudio] = useState({})
     const [audioChunks , setAudioChunks] = useState([])
     const [snapshots , setSnapshots] = useState([])
-
+    const [playing, setPlaying] = useState(false);
+    const [currentPlayTime, setCurrentPlayTime] = useState(0);
     
     const updateAudio = (url , chunks) => {
         const newAudio = new Audio(url);
@@ -47,6 +48,19 @@ export default function Record() {
 
         return () => clearInterval(interval)
     } , [])
+
+    useEffect(() => {
+        if (playing) {
+            const interval = setInterval(() => {
+                setCurrentPlayTime(audio.currentTime);
+                if (audio.duration === audio.currentTime) {
+                    setPlaying(false);
+                }
+            }, 1000)
+
+            return () => clearInterval(interval)
+        }
+    }, [playing])
 
 
     const record = () => {
@@ -76,12 +90,14 @@ export default function Record() {
     }
     function playPreview() {
         audio.play()
+        setPlaying(true);
     }
 
     const addSnapshot = (snapshot) => {
         setSnapshots([...snapshots , snapshot])
+
     }
-    
+
     return (
         <Main>
             
@@ -95,7 +111,8 @@ export default function Record() {
                         <CodeSpace addSnapshot={addSnapshot} mins={mins} seconds={seconds} />
                     </InputCon>
                     <PreviewCon>
-                        <PreviewSpace/>
+                        <PreviewSpace snapshots={snapshots} currentTime={currentPlayTime}/>
+
                         <PreviewButtons>
                             <PreviewButton details={{type: "backward", action: backwardPreview}} />
                             <PreviewButton details={{type: "play", action: playPreview}} />

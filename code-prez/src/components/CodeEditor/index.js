@@ -10,7 +10,7 @@ export default function CodeEditor(props){
         onChange={props.onChange}
         theme="vs-dark"
         options={ {selectOnLineNumbers: true , readOnly : props.readOnly || false }}
-        
+
         />
     )
 }
