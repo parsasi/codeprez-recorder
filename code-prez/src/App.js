@@ -3,13 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Home from './pages/Home';
+import Record from './pages/Record';
 
 function App() {
     return (
         <Pages>
             <Switch>
                 <Route path ="/" component={Home} exact/>
-
+                <Route path="/record" component={Record} />
             </Switch>
         </Pages>
     );
