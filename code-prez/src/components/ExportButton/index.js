@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import Download from '../../assets/download.png'
 
 export default function ExportButton() {
     return (
         <Div>
             <Button>
+                    <img src={Download} alt="Export" />
                     <p style={{color: "white", fontSize: "14px"}}>
                         Export Recording
                     </p>
@@ -21,13 +23,20 @@ const Div = styled.div`
     display: flex;
     align-items: flex-end;
 `;
-const Button = styled.div`
+const Button = styled.button`
     width: 100%;
     height: 80%;
     border-radius: 4px;
     box-shadow: 0 0 7.5px #313C4E; 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction:column;
     cursor: pointer;
+    background-color: #313C4E   ;
+    justify-content:center;
+    align-items:center;
+    margin:5px 10px;
+    border:none;
+    color:#ffffff;
+    transition:all 0.3s;
+    padding-top:20px;
 `;
