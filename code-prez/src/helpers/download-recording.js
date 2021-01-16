@@ -7,7 +7,7 @@ export default function downloadRecording(chunks) {
     document.body.appendChild(a);
     a.style = "display: none";
     a.href = url;
-    a.download = "CodePrez.webm";
+    a.download = "CodePrez.weba";
     a.click();
     window.URL.revokeObjectURL(url);
   }

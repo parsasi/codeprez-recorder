@@ -5,7 +5,6 @@ import PreviewSpace from '../../components/PreviewSpace';
 import CodeRecordNav from '../../components/CodeRecordNav';
 import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '../../helpers/timer'
 import useRecorder from '../../hooks/useRecorder'
-
 import PreviewButton from '../../components/PreviewButton';
 import ExportButton from '../../components/ExportButton';
 
@@ -96,7 +95,7 @@ export default function Record() {
                         <CodeSpace addSnapshot={addSnapshot} mins={mins} seconds={seconds} />
                     </InputCon>
                     <PreviewCon>
-                        <PreviewSpace />
+                        <PreviewSpace/>
                         <PreviewButtons>
                             <PreviewButton details={{type: "backward", action: backwardPreview}} />
                             <PreviewButton details={{type: "play", action: playPreview}} />
