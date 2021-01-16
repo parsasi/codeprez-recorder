@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import Button from '../Button' 
+import styled, { css } from 'styled-components'
+import RecorderNavButton from '../RecorderNavButton' 
 import Record from '../../assets/record.png'
 import Pause from '../../assets/pause.png'
 import Stop from '../../assets/stop.png'
-import { RecordingStates } from '../../pages/Home'
+import { RecordingStates } from '../../pages/Record'
+import './animation.css'
 
 const RecorderNavContainer = styled.div`
     width:100%;
@@ -31,15 +32,16 @@ const RecorderNavTimer = styled.div`
     color:#ffffff;
 `
 
+
 export default function CodeRecordNav(props){
 
     return (
         <RecorderNavContainer>
             <RecorderNav>
                 <RecorderNavButtons>
-                    <Button onClick={props.record} ><img src={Record} alt="" /></Button>
-                    <Button onClick={props.pause}><img src={Pause} alt="" /></Button>
-                    <Button onClick={props.stop}><img src={Stop} alt="" /></Button>
+                    <RecorderNavButton disabled={props.recording !== RecordingStates.NOT_STARTED} onClick={props.record} ><img src={Record} alt="" className={props.recording === RecordingStates.RECORDING ? 'blink' : ''} /></RecorderNavButton>
+                    <RecorderNavButton disabled={props.recording === RecordingStates.NOT_STARTED || props.recording === RecordingStates.FINISHED} onClick={props.pause}><img src={Pause} alt="" /></RecorderNavButton>
+                    <RecorderNavButton disabled={props.recording === RecordingStates.NOT_STARTED || props.recording === RecordingStates.FINISHED} onClick={props.stop}><img src={Stop} alt="" /></RecorderNavButton>
                 </RecorderNavButtons>
                 <RecorderNavTimer>
                     {props.mins.toString().length === 1 && '0'}{props.mins }:{props.seconds.toString().length === 1 && '0'}{props.seconds}

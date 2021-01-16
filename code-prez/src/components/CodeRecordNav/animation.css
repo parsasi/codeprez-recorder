@@ -1,0 +1,16 @@
+@keyframes Blinking {
+    to {
+      opacity: 0.3;
+    }
+    
+    to {
+      opacity: 0.3;
+    }
+}
+
+
+.blink{
+  animation:Blinking  1s steps(5, start) infinite;
+  -webkit-animation:Blinking 1s steps(5, start) infinite;
+  animation-timing-function: linear;
+}
