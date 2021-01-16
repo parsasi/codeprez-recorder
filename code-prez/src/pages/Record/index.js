@@ -22,7 +22,6 @@ export default function Record() {
     const [mins , setMins] = useState(0)
     const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
     const [audio , setAudio] = useState({})
-    console.log(seconds);
     
     const updateAudio = (url) => {
         const newAudio = new Audio(url);
@@ -74,7 +73,6 @@ export default function Record() {
     }
     function playPreview() {
         audio.play()
-        console.log(audio.currentTime);
     }
     
     return (
