@@ -22,12 +22,14 @@ export default function Record() {
     const [mins , setMins] = useState(0)
     const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
     const [audio , setAudio] = useState({})
+    const [audioChunks , setAudioChunks] = useState([])
     const [snapshots , setSnapshots] = useState([])
 
     
-    const updateAudio = (url) => {
+    const updateAudio = (url , chunks) => {
         const newAudio = new Audio(url);
         setAudio(newAudio)
+        setAudioChunks(chunks)
     }
     const recorder = useRecorder(updateAudio);
 
@@ -100,7 +102,7 @@ export default function Record() {
                             <PreviewButton details={{type: "play", action: playPreview}} />
                             <PreviewButton details={{type: "forward", action: forwardPreview}} />
                         </PreviewButtons>
-                        <ExportButton snapshots={snapshots} />
+                        <ExportButton audioChunks={audioChunks} snapshots={snapshots} />
                     </PreviewCon>
                 </BodyCon>
             </RecordBG>

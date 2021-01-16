@@ -43,7 +43,7 @@ export default function useRecorder(getNewTrack) {
 
       mediaRecorder.addEventListener("stop", () => {
         const audioBlob = new Blob(audioChunks);
-        getNewTrack(URL.createObjectURL(audioBlob));
+        getNewTrack(URL.createObjectURL(audioBlob) , audioChunks);
       });
     }
   };
