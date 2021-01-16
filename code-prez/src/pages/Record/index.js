@@ -1,47 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CodeSpace from '../../components/CodeSpace';
 import PreviewSpace from '../../components/PreviewSpace';
 import CodeRecordNav from '../../components/CodeRecordNav';
-import codeSnapshots from '../../codeSnapshots.json';
+import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '../../helpers/timer'
+import useRecorder from '../../hooks/useRecorder'
+
+export const RecordingStates = {
+    NOT_STARTED : 'NOT_STARTED',
+    RECORDING : 'RECORDING',
+    PAUSED : 'PAUSED',
+    FINISHED : 'FINISHED'
+}
 
 export default function Record() {
-    const [recording, setRecording] = useState(false);
-    const [currentTime, setCurrentTime] = useState("");
-    const [totalRecordTime, setTotalRecordTime] = useState(0);
 
-    codeSnapshots.snapshots.push({
-        timestamp: totalRecordTime,
-        text: "test"
-    });
-    console.log(codeSnapshots);
+    const [seconds , setSeconds] = useState(0)
+    const [mins , setMins] = useState(0)
+    const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
+    const [audio , setAudio] = useState({})
 
-    function toggleRecord() {
-        let time = new Date();
-        if (!recording) {
-            // If not recording and no time has been stored on button press, record and set time.
-            console.log("recording...")
-            setRecording(true)
-            setCurrentTime(time);
-        } else {
-            console.log("paused...")
-            setRecording(false);
-            const totalTime = time - currentTime;
-            const addedTime = totalTime + totalRecordTime;
-            setTotalRecordTime(addedTime);
-        } 
+    
+    const updateAudio = (url) => {
+        const newAudio = new Audio(url);
+        setAudio(newAudio)
     }
+    const recorder = useRecorder(updateAudio);
+
+    useEffect(() => {
+        const interval = timer()
+
+        return () => clearInterval(interval)
+    } , [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const {sec , min } = getTime()
+            setSeconds(sec)
+            setMins(min)
+        } , 1000)
+
+        return () => clearInterval(interval)
+    } , [])
+
+
+    const record = () => {
+        recorder.start()
+        startTimer()
+    }
+
+    const pause = () => {
+        recorder.pause()
+        togglePauseTimer()
+    }
+    
+
+    const stop = () => {
+        recorder.stop()
+        resetTimer()
+    }
+    
     return (
         <Main>
             
-            {/* <button
-                onClick={() => {toggleRecord()}}
-            >
-                {!recording ? "record" : "pause"}
-            </button> */}
             <RecordBG>
                 <NavCon>
-                    <CodeRecordNav />
+                    <CodeRecordNav record={record} pause={pause} stop={stop} mins={mins} seconds={seconds} />
                 </NavCon>
 
                 <BodyCon>
