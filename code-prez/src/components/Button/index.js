@@ -15,17 +15,17 @@ export default function Button(props){
         border-radius:10px;
         border:none;
         color:#ffffff;
-        cursor:pointer;
+        cursor:${!props.disabled ? `not-allowed` : 'pointer'};
         transition:all 0.3s;
 
         &:hover{
-            transform: scale(1.1);
+            transform: ${!props.disabled ? `scale(1.1)` : 'none'};
         }
     `
 
     return (
 
-            <StyledButton onClick={props.onClick}>
+            <StyledButton disabled={props.disabled || false} onClick={props.onClick}>
                 {props.children}
             </StyledButton>
 
