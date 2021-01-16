@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "json-server": "json-server codeSnapshots.json --port 4040",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
