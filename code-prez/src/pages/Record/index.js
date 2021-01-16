@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CodeSpace from '../../components/CodeSpace';
 import PreviewSpace from '../../components/PreviewSpace';
@@ -10,10 +10,23 @@ export default function Record() {
     const [currentTime, setCurrentTime] = useState("");
     const [totalRecordTime, setTotalRecordTime] = useState(0);
 
-    codeSnapshots.snapshots.push({
-        timestamp: totalRecordTime,
-        text: "test"
-    });
+    useEffect(() => {
+        if (recording) {
+            if (totalRecordTime % 100 === 0) {
+                codeSnapshots.snapshots.push({
+                    timestamp: totalRecordTime,
+                    text: "test"
+                });
+                console.log("ive added");
+            } else {
+                console.log("nope");
+            }
+        } else {
+            console.log("nope");
+        }
+    }, [totalRecordTime])
+
+
     console.log(codeSnapshots);
 
     function toggleRecord() {
@@ -34,11 +47,11 @@ export default function Record() {
     return (
         <Main>
             
-            {/* <button
+            <button
                 onClick={() => {toggleRecord()}}
             >
                 {!recording ? "record" : "pause"}
-            </button> */}
+            </button>
             <RecordBG>
                 <NavCon>
                     <CodeRecordNav />
