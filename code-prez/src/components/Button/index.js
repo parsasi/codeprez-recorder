@@ -16,6 +16,11 @@ export default function Button(props){
         border:none;
         color:#ffffff;
         cursor:pointer;
+        transition:all 0.3s;
+
+        &:hover{
+            transform: scale(1.1);
+        }
     `
 
     return (

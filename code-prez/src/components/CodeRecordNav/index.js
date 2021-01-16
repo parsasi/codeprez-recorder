@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Button from '../Button' 
 import Record from '../../assets/record.png'
+import Pause from '../../assets/pause.png'
+import Stop from '../../assets/stop.png'
 
 const RecorderNavContainer = styled.div`
     height:110px;
@@ -23,6 +25,8 @@ export default function CodeRecordNav(props){
         <RecorderNavContainer>
             <RecorderNav>
                 <Button><img src={Record} alt="" /></Button>
+                <Button><img src={Pause} alt="" /></Button>
+                <Button><img src={Stop} alt="" /></Button>
             </RecorderNav>
         </RecorderNavContainer>
     )
