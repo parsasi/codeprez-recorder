@@ -5,7 +5,6 @@ import PreviewSpace from '../../components/PreviewSpace';
 import CodeRecordNav from '../../components/CodeRecordNav';
 import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '../../helpers/timer'
 import useRecorder from '../../hooks/useRecorder'
-
 import PreviewButton from '../../components/PreviewButton';
 import ExportButton from '../../components/ExportButton';
 
@@ -22,14 +21,15 @@ export default function Record() {
     const [mins , setMins] = useState(0)
     const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
     const [audio , setAudio] = useState({})
+    const [audioChunks , setAudioChunks] = useState([])
     const [snapshots , setSnapshots] = useState([])
     const [playing, setPlaying] = useState(false);
     const [currentPlayTime, setCurrentPlayTime] = useState(0);
     
-    const updateAudio = (url) => {
+    const updateAudio = (url , chunks) => {
         const newAudio = new Audio(url);
         setAudio(newAudio)
-
+        setAudioChunks(chunks)
     }
     const recorder = useRecorder(updateAudio);
 
@@ -112,12 +112,13 @@ export default function Record() {
                     </InputCon>
                     <PreviewCon>
                         <PreviewSpace snapshots={snapshots} currentTime={currentPlayTime}/>
+
                         <PreviewButtons>
                             <PreviewButton details={{type: "backward", action: backwardPreview}} />
                             <PreviewButton details={{type: "play", action: playPreview}} />
                             <PreviewButton details={{type: "forward", action: forwardPreview}} />
                         </PreviewButtons>
-                        <ExportButton snapshots={snapshots} />
+                        <ExportButton audioChunks={audioChunks} snapshots={snapshots} />
                     </PreviewCon>
                 </BodyCon>
             </RecordBG>
