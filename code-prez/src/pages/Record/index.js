@@ -22,6 +22,7 @@ export default function Record() {
     const [mins , setMins] = useState(0)
     const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
     const [audio , setAudio] = useState({})
+    const [snapshots , setSnapshots] = useState([])
 
     
     const updateAudio = (url) => {
@@ -75,6 +76,10 @@ export default function Record() {
     function playPreview() {
         audio.play()
     }
+
+    const addSnapshot = (snapshot) => {
+        setSnapshots([...snapshots , snapshot])
+    }
     
     return (
         <Main>
@@ -86,7 +91,7 @@ export default function Record() {
 
                 <BodyCon>
                     <InputCon>
-                        <CodeSpace />
+                        <CodeSpace addSnapshot={addSnapshot} mins={mins} seconds={seconds} />
                     </InputCon>
                     <PreviewCon>
                         <PreviewSpace />
@@ -95,7 +100,7 @@ export default function Record() {
                             <PreviewButton details={{type: "play", action: playPreview}} />
                             <PreviewButton details={{type: "forward", action: forwardPreview}} />
                         </PreviewButtons>
-                        <ExportButton />
+                        <ExportButton snapshots={snapshots} />
                     </PreviewCon>
                 </BodyCon>
             </RecordBG>

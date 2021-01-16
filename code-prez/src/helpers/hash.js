@@ -1,4 +1,4 @@
-c(content) => {
+const hash  = (content) => {
     let hashed = 0;
     if (content.length == 0) {
         return hashed;
