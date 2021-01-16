@@ -28,6 +28,7 @@ const RecorderNavButtons = styled.div`
 const RecorderNavTimer = styled.div`
     margin-left:50px;
     font-size:2rem;
+    color:#ffffff;
 `
 
 export default function CodeRecordNav(props){
@@ -41,7 +42,7 @@ export default function CodeRecordNav(props){
                     <Button onClick={props.stop}><img src={Stop} alt="" /></Button>
                 </RecorderNavButtons>
                 <RecorderNavTimer>
-                    {props.mins}:{props.seconds}
+                    {props.mins.toString().length === 1 && '0'}{props.mins }:{props.seconds.toString().length === 1 && '0'}{props.seconds}
                 </RecorderNavTimer>
             </RecorderNav>
         </RecorderNavContainer>

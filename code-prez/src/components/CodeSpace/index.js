@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import CodeEditor from '../CodeEditor'
 
 export default function CodeSpace() {
     return (
         <Main>
-            <Input />
+            <CodeEditor lang={'javascript'} onChange={console.log} />
         </Main>
     )
 }
