@@ -23,7 +23,6 @@ export default function Home() {
 
     return (
         <HomeContainer>
-            <CodeRecorderNav recordedTime={recordedTime} recordingState={recordingState} setRecordingState={setRecordingState} />
             <p>Home page.</p>
         </HomeContainer>
     )

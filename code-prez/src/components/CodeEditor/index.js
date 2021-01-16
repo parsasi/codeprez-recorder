@@ -9,6 +9,8 @@ export default function CodeEditor(props){
         value={props.content || ''}
         onChange={props.onChange}
         theme="vs-dark"
-        options={ {selectOnLineNumbers: true }} />
+        options={ {selectOnLineNumbers: true , readOnly : props.readOnly || false }}
+        
+        />
     )
 }

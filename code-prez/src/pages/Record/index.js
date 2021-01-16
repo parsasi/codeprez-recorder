@@ -105,7 +105,7 @@ export default function Record() {
 const Main = styled.div`
     width: 100vw;
     height: 100vh;
-
+    background-color:#253D5B;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -150,6 +150,7 @@ const InputCon = styled.div`
 const PreviewCon = styled.div`
     display: flex;
     justify-content: flex-start;
+    align-items:center;
     width: 40%;
     height: 100%;
     flex-direction: column;
