@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function Button(props){
+export default function RecorderNavButton(props){
 
     const StyledButton = styled.button`
         min-width:100px;
@@ -15,7 +15,7 @@ export default function Button(props){
         border-radius:10px;
         border:none;
         color:#ffffff;
-        cursor:${!props.disabled ? `not-allowed` : 'pointer'};
+        cursor:${!props.disabled ?  'pointer' : 'not-allowed'};
         transition:all 0.3s;
 
         &:hover{

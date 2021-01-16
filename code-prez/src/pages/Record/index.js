@@ -22,7 +22,7 @@ export default function Record() {
     const [mins , setMins] = useState(0)
     const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
     const [audio , setAudio] = useState({})
-
+    console.log(seconds);
     
     const updateAudio = (url) => {
         const newAudio = new Audio(url);
@@ -50,19 +50,22 @@ export default function Record() {
     const record = () => {
         recorder.start()
         startTimer()
+        setRecording(RecordingStates.RECORDING)
     }
 
     const pause = () => {
         recorder.pause()
         togglePauseTimer()
+        recording === RecordingStates.RECORDING ? setRecording(RecordingStates.PAUSED) :  setRecording(RecordingStates.RECORDING) 
     }
     
 
     const stop = () => {
         recorder.stop()
         resetTimer()
+        setRecording(RecordingStates.STOP) 
     }
-
+    
     function backwardPreview() {
         console.log("placeholder")
     }
@@ -70,7 +73,8 @@ export default function Record() {
         console.log("placeholder")
     }
     function playPreview() {
-        console.log("placeholder")
+        audio.play()
+        console.log(audio.currentTime);
     }
     
     return (
@@ -78,7 +82,7 @@ export default function Record() {
             
             <RecordBG>
                 <NavCon>
-                    <CodeRecordNav record={record} pause={pause} stop={stop} mins={mins} seconds={seconds} />
+                    <CodeRecordNav recording={recording} setRecording={setRecording} record={record} pause={pause} stop={stop} mins={mins} seconds={seconds} />
                 </NavCon>
 
                 <BodyCon>
@@ -105,7 +109,7 @@ export default function Record() {
 const Main = styled.div`
     width: 100vw;
     height: 100vh;
-
+    background-color:#253D5B;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -150,6 +154,7 @@ const InputCon = styled.div`
 const PreviewCon = styled.div`
     display: flex;
     justify-content: flex-start;
+    align-items:center;
     width: 40%;
     height: 100%;
     flex-direction: column;

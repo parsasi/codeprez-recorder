@@ -45,6 +45,7 @@ export default function useRecorder(getNewTrack) {
         const audioBlob = new Blob(audioChunks);
         getNewTrack(URL.createObjectURL(audioBlob));
       });
+      
     }
   };
 
