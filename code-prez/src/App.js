@@ -1,4 +1,5 @@
 import React from 'react';
+import GlobalStyles from './GlobalStyles';
 import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
