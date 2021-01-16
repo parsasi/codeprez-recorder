@@ -26,9 +26,12 @@ export default function PreviewButton({ details }) {
 
 const Button = styled.button`
     background-color: #313C4E;
-    width: 50px;
-    height: 30px;
+    width: 70px;
+    height: 35px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;

@@ -1,90 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CodeSpace from '../../components/CodeSpace';
 import PreviewSpace from '../../components/PreviewSpace';
 import CodeRecordNav from '../../components/CodeRecordNav';
-import ExportButton from '../../components/ExportButton';
+import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '../../helpers/timer'
+import useRecorder from '../../hooks/useRecorder'
+
 import PreviewButton from '../../components/PreviewButton';
+import ExportButton from '../../components/ExportButton';
 
-import codeSnapshots from '../../codeSnapshots.json';
-import useRecorder from '../../hooks/useRecorder';
-
+export const RecordingStates = {
+    NOT_STARTED : 'NOT_STARTED',
+    RECORDING : 'RECORDING',
+    PAUSED : 'PAUSED',
+    FINISHED : 'FINISHED'
+}
 
 export default function Record() {
-    const [recording, setRecording] = useState(false);
-    const [currentTime, setCurrentTime] = useState("");
-    const [totalRecordTime, setTotalRecordTime] = useState(0);
 
-    // let timer;
-    // // if (recording) {
-    // //     timer = setInterval(() => {
-    // //         const current = new Date();
-    // //         console.log(current - time);
-    // //     }, 50);
-    // // } else {
-    // //     clearInterval(timer);
-    // // }
+    const [seconds , setSeconds] = useState(0)
+    const [mins , setMins] = useState(0)
+    const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
+    const [audio , setAudio] = useState({})
+
+    
+    const updateAudio = (url) => {
+        const newAudio = new Audio(url);
+        setAudio(newAudio)
+    }
+    const recorder = useRecorder(updateAudio);
 
     useEffect(() => {
-        let time = new Date();
-        if (recording) {
-            const interval = setInterval(() => {
-                const current = new Date();
-                let intervalTime = (current - time)
-                //console.log(intervalTime);
-                if (intervalTime % 100 === 0) {
-                    codeSnapshots.snapshots.push({
-                        timestamp: current - currentTime,
-                        text: "test"
-                    })
-                    console.log(codeSnapshots.snapshots.length);
-                }
-            }, 50);
-            return () => {
-                clearInterval(interval)
-            }
-        }
+        const interval = timer()
 
-    }, [recording])
+        return () => clearInterval(interval)
+    } , [])
 
-    function toggleRecord() {
-        let time = new Date();
-        let timer;
-        if (!recording) {
-            // If not recording and no time has been stored on button press, record and set time.
-            console.log("recording...")
-            setRecording(true)
-            setCurrentTime(time);
-        } else if (recording) {
-            console.log("paused...")
-            setRecording(false);
-            const totalTime = time - currentTime;
-            const addedTime = totalTime + totalRecordTime;
-            setTotalRecordTime(addedTime);
-        } 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const {sec , min } = getTime()
+            setSeconds(sec)
+            setMins(min)
+        } , 1000)
+
+        return () => clearInterval(interval)
+    } , [])
+
+
+    const record = () => {
+        recorder.start()
+        startTimer()
     }
 
-    function playPreview() {
-        console.log("play placeholder");
+    const pause = () => {
+        recorder.pause()
+        togglePauseTimer()
+    }
+    
+
+    const stop = () => {
+        recorder.stop()
+        resetTimer()
     }
 
     function backwardPreview() {
-        console.log("backward placeholder");
+        console.log("placeholder")
     }
-
     function forwardPreview() {
-        console.log("forward preview");
+        console.log("placeholder")
     }
+    function playPreview() {
+        console.log("placeholder")
+    }
+    
     return (
         <Main>
-            {/* <button
-                onClick={() => {toggleRecord()}}
-            >
-                {!recording ? "record" : "pause"}
-            </button> */}
+            
             <RecordBG>
                 <NavCon>
-                <CodeRecordNav />
+                    <CodeRecordNav record={record} pause={pause} stop={stop} mins={mins} seconds={seconds} />
                 </NavCon>
 
                 <BodyCon>
