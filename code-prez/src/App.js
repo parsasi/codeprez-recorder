@@ -9,7 +9,6 @@ function App() {
         <Pages>
             <Switch>
                 <Route path ="/" component={Home} exact/>
-
             </Switch>
         </Pages>
     );
@@ -19,5 +18,7 @@ const Pages = styled.div`
     width: 100vw;
     height: 100vh;
 `
+
+
 
 export default App;
