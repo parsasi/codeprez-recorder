@@ -50,19 +50,22 @@ export default function Record() {
     const record = () => {
         recorder.start()
         startTimer()
+        setRecording(RecordingStates.RECORDING)
     }
 
     const pause = () => {
         recorder.pause()
         togglePauseTimer()
+        recording === RecordingStates.RECORDING ? setRecording(RecordingStates.PAUSED) :  setRecording(RecordingStates.RECORDING) 
     }
     
 
     const stop = () => {
         recorder.stop()
         resetTimer()
+        setRecording(RecordingStates.STOP) 
     }
-
+    
     function backwardPreview() {
         console.log("placeholder")
     }
@@ -70,7 +73,7 @@ export default function Record() {
         console.log("placeholder")
     }
     function playPreview() {
-        console.log("placeholder")
+        audio.play()
     }
     
     return (
@@ -78,7 +81,7 @@ export default function Record() {
             
             <RecordBG>
                 <NavCon>
-                    <CodeRecordNav record={record} pause={pause} stop={stop} mins={mins} seconds={seconds} />
+                    <CodeRecordNav recording={recording} setRecording={setRecording} record={record} pause={pause} stop={stop} mins={mins} seconds={seconds} />
                 </NavCon>
 
                 <BodyCon>
