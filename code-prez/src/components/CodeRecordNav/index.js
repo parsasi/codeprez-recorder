@@ -6,13 +6,17 @@ import Pause from '../../assets/pause.png'
 import Stop from '../../assets/stop.png'
 
 const RecorderNavContainer = styled.div`
-    height:110px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    height:75px;
+    width: 100%;
     background-color:#313C4E;
     display:flex;
     justify-content:center;
 `
 const RecorderNav = styled.div`
-    width:80%;
+border-top-radius: 4px;
+    width:96.5%;
     height:100%;
     display:flex;
     justify-content:flex-start;
@@ -24,9 +28,9 @@ export default function CodeRecordNav(props){
     return (
         <RecorderNavContainer>
             <RecorderNav>
-                <Button><img src={Record} alt="" /></Button>
-                <Button><img src={Pause} alt="" /></Button>
-                <Button><img src={Stop} alt="" /></Button>
+                <Button><img style={{height: "20px", width: "20px"}} src={Record} alt="" /></Button>
+                <Button><img style={{height: "20px", width: "20px"}} src={Pause} alt="" /></Button>
+                <Button><img style={{height: "20px", width: "20px"}} src={Stop} alt="" /></Button>
             </RecorderNav>
         </RecorderNavContainer>
     )
