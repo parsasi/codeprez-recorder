@@ -5,7 +5,7 @@ import CodeRecordNav from '../../components/CodeRecordNav';
 import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '../../helpers/timer'
 import useRecorder from '../../hooks/useRecorder'
 import Player from '../../components/Player'
-import ExportButton from '../../components/ExportButton';
+import ExportButton from '../../components/ExportButton'
 
 
 
@@ -21,7 +21,7 @@ export default function Record() {
     const [seconds , setSeconds] = useState(0)
     const [mins , setMins] = useState(0)
     const [recording , setRecording] = useState(RecordingStates.NOT_STARTED)
-    const [audio , setAudio] = useState({})
+    const [audio , setAudio] = useState(new Audio())
     const [audioChunks , setAudioChunks] = useState([])
     const [snapshots , setSnapshots] = useState([])
     
@@ -47,8 +47,6 @@ export default function Record() {
 
         return () => clearInterval(interval)
     } , [])
-
-
 
     const record = () => {
         recorder.start()
