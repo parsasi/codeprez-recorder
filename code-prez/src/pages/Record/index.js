@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CodeSpace from '../../components/CodeSpace';
-import PreviewSpace from '../../components/PreviewSpace';
 import CodeRecordNav from '../../components/CodeRecordNav';
 import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '../../helpers/timer'
 import useRecorder from '../../hooks/useRecorder'
-import PreviewButton from '../../components/PreviewButton';
+import Player from '../../components/Player'
 import ExportButton from '../../components/ExportButton';
+
+
 
 export const RecordingStates = {
     NOT_STARTED : 'NOT_STARTED',
@@ -23,8 +24,6 @@ export default function Record() {
     const [audio , setAudio] = useState({})
     const [audioChunks , setAudioChunks] = useState([])
     const [snapshots , setSnapshots] = useState([])
-    const [playing, setPlaying] = useState(false);
-    const [currentPlayTime, setCurrentPlayTime] = useState(0);
     
     const updateAudio = (url , chunks) => {
         const newAudio = new Audio(url);
@@ -49,18 +48,6 @@ export default function Record() {
         return () => clearInterval(interval)
     } , [])
 
-    useEffect(() => {
-        if (playing) {
-            const interval = setInterval(() => {
-                setCurrentPlayTime(audio.currentTime);
-                if (audio.duration === audio.currentTime) {
-                    setPlaying(false);
-                }
-            }, 1000)
-
-            return () => clearInterval(interval)
-        }
-    }, [playing])
 
 
     const record = () => {
@@ -82,18 +69,6 @@ export default function Record() {
         setRecording(RecordingStates.STOP) 
     }
     
-    function backwardPreview() {
-        console.log("placeholder")
-    }
-    function forwardPreview() {
-        console.log("placeholder")
-    }
-    function playPreview() {
-        if(audio){
-            audio.play()
-            setPlaying(true);
-        }
-    }
 
     const addSnapshot = (snapshot) => {
         setSnapshots([...snapshots , snapshot])
@@ -113,13 +88,7 @@ export default function Record() {
                         <CodeSpace addSnapshot={addSnapshot} mins={mins} seconds={seconds} />
                     </InputCon>
                     <PreviewCon>
-                        <PreviewSpace snapshots={snapshots} currentTime={currentPlayTime}/>
-
-                        <PreviewButtons>
-                            <PreviewButton details={{type: "backward", action: backwardPreview}} />
-                            <PreviewButton details={{type: "play", action: playPreview}} />
-                            <PreviewButton details={{type: "forward", action: forwardPreview}} />
-                        </PreviewButtons>
+                        <Player audio={audio} snapshots={snapshots} seconds={seconds}/>
                         <ExportButton audioChunks={audioChunks} snapshots={snapshots} />
                     </PreviewCon>
                 </BodyCon>
@@ -175,6 +144,7 @@ const InputCon = styled.div`
     justify-content: center;
 `;
 
+
 const PreviewCon = styled.div`
     display: flex;
     justify-content: flex-start;
@@ -182,13 +152,4 @@ const PreviewCon = styled.div`
     width: 40%;
     height: 100%;
     flex-direction: column;
-`;
-
-const PreviewButtons = styled.div`
-    width: 92%;
-    height: 10%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 `;
