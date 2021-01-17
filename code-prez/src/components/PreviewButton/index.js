@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import play from '../../assets/play.png';
 import backward from '../../assets/backward.png';
 import forward from '../../assets/forward.png'
+import pause from '../../assets/pause.png'
 const IMAGES = [
     {type: "play", src: play},
     {type: "backward", src: backward},
-    {type: "forward", src: forward}
+    {type: "forward", src: forward},
+    {type: "pause" , src: pause }
 ];
 
 export default function PreviewButton({ details }) {
@@ -19,7 +21,7 @@ export default function PreviewButton({ details }) {
         <Button 
             onClick={() => {details.action()}}
         >
-            <img style={{height: "15px", width: "15px"}}src={buttonImg[0].src} />
+            <img style={{height: "15px", width: "15px"}}src={buttonImg[0].src} alt={buttonImg[0].type}/>
         </Button>
     )
 }
