@@ -6,6 +6,8 @@ import timer , { getTime , startTimer , togglePauseTimer , resetTimer } from '..
 import useRecorder from '../../hooks/useRecorder'
 import Player from '../../components/Player'
 import ExportButton from '../../components/ExportButton'
+import LangDropdown from '../../components/LangDropdown'
+import { langToExtension } from '../../helpers/lang-to-extention'
 
 
 
@@ -24,6 +26,7 @@ export default function Record() {
     const [audio , setAudio] = useState(new Audio())
     const [audioChunks , setAudioChunks] = useState([])
     const [snapshots , setSnapshots] = useState([])
+    const [lang , setLang] = useState(Object.keys(langToExtension)[0])
     
     const updateAudio = (url , chunks) => {
         const newAudio = new Audio(url);
@@ -80,14 +83,20 @@ export default function Record() {
                 <NavCon>
                     <CodeRecordNav recording={recording} setRecording={setRecording} record={record} pause={pause} stop={stop} mins={mins} seconds={seconds} />
                 </NavCon>
-
+               
                 <BodyCon>
                     <InputCon>
-                        <CodeSpace addSnapshot={addSnapshot} mins={mins} seconds={seconds} />
+                        <LangDropdownContainer>
+                            <LangDropdown lang={lang} setLang={setLang} />
+                        </LangDropdownContainer>
+                        <CodeSpaceContainer>
+                            <CodeSpace lang={lang} addSnapshot={addSnapshot} mins={mins} seconds={seconds} />
+                        </CodeSpaceContainer>
+                        
                     </InputCon>
                     <PreviewCon>
-                        <Player audio={audio} snapshots={snapshots} />
-                        <ExportButton audioChunks={audioChunks} snapshots={snapshots} />
+                        <Player lang={lang} audio={audio} snapshots={snapshots} />
+                        <ExportButton lang={lang} audioChunks={audioChunks} snapshots={snapshots} />
                     </PreviewCon>
                 </BodyCon>
             </RecordBG>
@@ -106,6 +115,24 @@ const Main = styled.div`
     align-items: center;
     justify-content: center;
 `;
+
+const LangDropdownContainer = styled.div`
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    margin:10px 0;
+    flex-direction: column;
+`;
+
+const CodeSpaceContainer = styled.div`
+    width: 95%;
+    height: 90%;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+`
+
 
 const RecordBG = styled.div`
     width: 70%;
@@ -135,12 +162,13 @@ const BodyCon = styled.div`
 
 const InputCon = styled.div`
     width: 60%;
-
     height: 100%;
     display: flex;
+    flex-direction:column;
     align-items: center;
     justify-content: center;
 `;
+
 
 
 const PreviewCon = styled.div`

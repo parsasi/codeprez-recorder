@@ -23,7 +23,7 @@ export default function CodeSpace(props) {
 
     return (
         <Main>
-            <CodeEditor lang={'javascript'} content={content} onChange={(text) => setContent(text)}  />
+            <CodeEditor lang={props.lang} content={content} onChange={(text) => setContent(text)}  />
         </Main>
     )
 }
