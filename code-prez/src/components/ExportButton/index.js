@@ -8,7 +8,7 @@ import generateFile from '../../helpers/generate-file'
 export default function ExportButton(props) {
 
     const downloadFile = () => {
-        const formattedOutput = generateFile(props.snapshots)
+        const formattedOutput = generateFile(props.snapshots , props.lang)
         download('CodePrez.cdpz' , JSON.stringify(formattedOutput))
         downloadRecording(props.audioChunks)
     }

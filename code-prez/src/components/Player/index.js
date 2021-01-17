@@ -7,6 +7,7 @@ import CodeSandboxLogo from '../../assets/codesandbox.svg'
 import DownloadFileIcon from '../../assets/download-file.png'
 import downloadFile from '../../helpers/download'
 import createSandbox from '../../helpers/create-sandbox'
+import convertLangToExtension from '../../helpers/lang-to-extention'
 
 export default function Player(props){
 
@@ -32,7 +33,9 @@ export default function Player(props){
         const currentSnap = props.snapshots
         .filter(snap => snap.timestamp === Math.floor(props.audio.currentTime));
         if(currentSnap.length){
-            downloadFile(currentSnap[0].hash , currentSnap[0].text)
+            const extension = convertLangToExtension(props.lang)
+            const fileName = currentSnap[0].hash + `.${extension}`
+            downloadFile(fileName , currentSnap[0].text)
         } 
     }
     
@@ -47,7 +50,9 @@ export default function Player(props){
         const currentSnap = props.snapshots
         .filter(snap => snap.timestamp === Math.floor(props.audio.currentTime));
         if(currentSnap.length){
-            const sandboxUrl = createSandbox(currentSnap[0].text)
+            const extension = convertLangToExtension(props.lang)
+            const fileName = `index.${extension}`
+            const sandboxUrl = createSandbox(currentSnap[0].text , fileName)
             window.location.replace(sandboxUrl)
         } 
     }
