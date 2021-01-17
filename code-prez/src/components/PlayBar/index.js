@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 export default function PlayBar({timeDetails, totalTime, isPlaying, setPlayTime}) {
 
+    const totalAudioTime = timeDetails.duration === Infinity || isNaN(timeDetails.duration) ? totalTime : timeDetails.duration;
+
     let currentWidth;
     if (isPlaying) {
-        const totalAudioTime = timeDetails.duration === Infinity ? totalTime : timeDetails.duration;
         currentWidth = (timeDetails.currentTime / totalAudioTime) * 100;
     }
     function changeTime(e) {
-        const totalAudioTime = timeDetails.duration === Infinity ? totalTime : timeDetails.duration;
         const bgBar = document.querySelector(".bar");
         const barStart = bgBar.getBoundingClientRect().left + window.scrollX;
         const barEnd = bgBar.getBoundingClientRect().right + window.scrollX;
