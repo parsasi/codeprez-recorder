@@ -41,8 +41,14 @@ export default function Player(props){
     
     function playPreview() {
         if(props.audio){
-            props.audio.play()
-            setPlaying(true);
+            if(props.audio.paused){
+                props.audio.play()
+                setPlaying(true)
+            }else{
+                props.audio.pause()
+                setPlaying(false)
+            }
+           
         }
     }
 
@@ -79,7 +85,7 @@ export default function Player(props){
             </SharePane>
             <PreviewButtons>
                 <PreviewButton details={{type: "backward", action: backwardPreview}} />
-                <PreviewButton details={{type: "play", action: playPreview}} />
+                {playing ? <PreviewButton details={{type: "pause", action: playPreview}} /> : <PreviewButton details={{type: "play", action: playPreview}} />}
                 <PreviewButton details={{type: "forward", action: forwardPreview}} />
             </PreviewButtons>
             <PlayBar timeDetails={props.audio} totalTime={props.seconds} isPlaying={playing}  />
