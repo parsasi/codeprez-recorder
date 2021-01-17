@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import DownloadImage from '../../assets/download.png'
 import download from '../../helpers/download'
 import downloadRecording from '../../helpers/download-recording'
+import generateFile from '../../helpers/generate-file'
 
 export default function ExportButton(props) {
 
     const downloadFile = () => {
-        download('CodePrez.cdpz' , JSON.stringify(props.snapshots))
+        const formattedOutput = generateFile(props.snapshots)
+        download('CodePrez.cdpz' , JSON.stringify(formattedOutput))
         downloadRecording(props.audioChunks)
     }
 

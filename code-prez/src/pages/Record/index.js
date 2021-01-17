@@ -89,8 +89,10 @@ export default function Record() {
         console.log("placeholder")
     }
     function playPreview() {
-        audio.play()
-        setPlaying(true);
+        if(audio){
+            audio.play()
+            setPlaying(true);
+        }
     }
 
     const addSnapshot = (snapshot) => {
