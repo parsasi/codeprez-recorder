@@ -95,7 +95,7 @@ export default function Record() {
                         
                     </InputCon>
                     <PreviewCon>
-                        <Player lang={lang} audio={audio} snapshots={snapshots} />
+                        <Player lang={lang} audio={audio} snapshots={snapshots} seconds={seconds} />
                         <ExportButton lang={lang} audioChunks={audioChunks} snapshots={snapshots} />
                     </PreviewCon>
                 </BodyCon>
