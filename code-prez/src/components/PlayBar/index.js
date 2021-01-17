@@ -16,23 +16,28 @@ export default function PlayBar({timeDetails, totalTime, isPlaying, setPlayTime}
         const clickedSpot = e.pageX - barStart;
         const barWidth = barEnd - barStart;
         const barPercent = (clickedSpot / barWidth) * 100;
-        timeDetails.currentTime = (barPercent * totalAudioTime) / 100;
+        if (currentWidth) {
+            timeDetails.currentTime = (barPercent * totalAudioTime) / 100;
+            currentWidth = barPercent;
+        }
+
     }
+    console.log(currentWidth)
     return (
         <MainCon>
             <BackgroundBar
             className="bar"                 
             onMouseDown={(e) => changeTime(e)} />
             <ProgressBar 
-                style={{width: timeDetails ? `${currentWidth}%` : "0px"}}
-                onMouseDown={(e) => changeTime(e)}
+                style={{width: currentWidth ? `${currentWidth}%` : "0%"}}
+                onMouseDown={(e) => {changeTime(e)}}
             >
-                {isPlaying || timeDetails.currentTime > 0 ? 
-                    <Circle 
-                        className="circle" style={{left: `98%`}} 
 
-                    />
-                : null}
+                <Circle 
+                    className="circle" style={{left: `98%`, backgroundColor: totalTime > 0 ? "#6c63ff" : "grey"}} 
+
+                />
+
             </ProgressBar>
         </MainCon>
     )
@@ -66,7 +71,7 @@ const BackgroundBar = styled.div`
 const ProgressBar = styled.div`
     flex: 1;
     position: absolute;
-    background-color: #6c63ff;
+    background-color: rgba(108,99,255,0.7);
     height: 10px;
     display: flex;
     border-radius: 5px;
@@ -78,7 +83,8 @@ const ProgressBar = styled.div`
         border-radius: 50%;
         height: 15px;
         width: 15px;
-        background-color: red;
+        background-color: #6c63ff;
+        box-shadow: 0 0 2px #000000;
         z-index: 100;
         position: relative;
     }
