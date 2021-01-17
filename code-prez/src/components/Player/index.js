@@ -1,7 +1,8 @@
 import React , {useState , useEffect} from 'react'
 import PreviewButton from '../../components/PreviewButton';
 import PreviewSpace from '../../components/PreviewSpace';
-import styled from 'styled-components'
+import PlayBar from '../../components/PlayBar';
+import styled from 'styled-components';
 import CodeSandboxLogo from '../../assets/codesandbox.svg'
 import DownloadFileIcon from '../../assets/download-file.png'
 import downloadFile from '../../helpers/download'
@@ -76,13 +77,12 @@ export default function Player(props){
                 <ShareButton title="Open in CodeSandbox" onClick={sendToSandbox}><img src={CodeSandboxLogo} alt="Open in CodeSandbox" /></ShareButton>
                 <ShareButton title="Download this snapshot" onClick={downloadSnapshot}><img src={DownloadFileIcon} alt="Download" /></ShareButton>
             </SharePane>
-
             <PreviewButtons>
                 <PreviewButton details={{type: "backward", action: backwardPreview}} />
                 <PreviewButton details={{type: "play", action: playPreview}} />
                 <PreviewButton details={{type: "forward", action: forwardPreview}} />
             </PreviewButtons>
-
+            <PlayBar timeDetails={props.audio} totalTime={props.seconds} isPlaying={playing}  />
             
 
         </>
