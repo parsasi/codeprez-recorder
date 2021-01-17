@@ -28,7 +28,7 @@ export default function ExportButton(props) {
 }
 
 const Div = styled.div`
-    width: 92%;
+    width: 96%;
     height: 25%;
     display: flex;
     align-items: flex-end;
