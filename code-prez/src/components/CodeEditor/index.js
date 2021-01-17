@@ -5,7 +5,7 @@ export default function CodeEditor(props){
     return (
         <Monaco width={100 + '%'}
         height={100 +'%'}
-        lang={props.lang || 'javascript'}
+        lang={props.lang}
         value={props.content || ''}
         onChange={props.onChange}
         theme="vs-dark"
