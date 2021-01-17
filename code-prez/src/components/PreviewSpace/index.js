@@ -4,11 +4,11 @@ import CodeEditor from '../CodeEditor'
 
 export default function PreviewSpace(props) {
     const currentSnap = props.snapshots
-    .filter(snap => snap.timestamp === Math.round(props.currentTime));
+    .filter(snap => snap.timestamp === Math.floor(props.currentTime));
     
     return (
         <Main>
-            <CodeEditor content={props.currentTime != 0 ? currentSnap[0].text : null} readOnly={true} />
+            <CodeEditor content={props.currentTime != 0 ? currentSnap[0].text : null} />
         </Main>
     )
 }
